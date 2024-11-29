@@ -1,5 +1,5 @@
-# Proyecto Ta-te-ti- Bugisoft- Programacion 1
-## UTN-FRA Programacion 1
+# Proyecto Ta-te-ti - Bugisoft - Programacion 1
+## UTN - FRA Programacion 1
 
 Colaboradores:
 
