@@ -1,0 +1,4 @@
+Puntuacion Final:
+Jugador X: 1 victorias
+Jugador O: 0 victorias
+Empates: 0 veces
