@@ -1,15 +1,15 @@
 from funciones import *
 
-scores = {}  # Diccionario para almacenar las puntuaciones de cada jugador
+scores = {}  
 play_again = True
 
 print_logo(logo)
 
-# Solicitar nombres de jugadores
+
 player_1_name = input("Enter the name of Player 1 (X): ")
 player_2_name = input("Enter the name of Player 2 (O): ")
 
-# Inicializar puntuaciones si no existen
+
 if player_1_name not in scores:
     scores[player_1_name] = 0
 if player_2_name not in scores:
@@ -17,7 +17,7 @@ if player_2_name not in scores:
 if "Tie" not in scores:
     scores["Tie"] = 0
 
-starting_player = player_1_name  # Comienza con el jugador 1
+starting_player = player_1_name  
 
 while play_again:
     board = [" "] * 9

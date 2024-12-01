@@ -138,8 +138,8 @@ def save_score(scores: dict) -> None:
     Parameters:
     scores (dict): Dictionary with the players' names and their respective scores.
     """
-    with open("score.txt", "a") as file:  # "a" mode to append instead of overwriting
+    with open("score.txt", "a") as file:  
         file.write("\nFinal Score:\n")
         for player, score in scores.items():
             file.write(f"{player}: {score} wins\n")
-        file.write("--------------\n")  # Separator for each game session
+        file.write("--------------\n")  
