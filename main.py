@@ -1,50 +1,62 @@
 from funciones import *
 
-puntuaciones = {
-        "X": 0,
-        "O": 0, 
-        "Empate": 0
-        }
-jugar_otra_vez = True
-jugador_inicial = "X"
+scores = {}  # Diccionario para almacenar las puntuaciones de cada jugador
+play_again = True
 
-imprimir_logo(logo)
+print_logo(logo)
 
-while jugar_otra_vez == True:
-    tablero = [" "] * 9
-    jugador_actual = jugador_inicial
-    juego_en_curso = True
+# Solicitar nombres de jugadores
+player_1_name = input("Enter the name of Player 1 (X): ")
+player_2_name = input("Enter the name of Player 2 (O): ")
 
-    while juego_en_curso:
-        imprimir_tablero(tablero)
-        posicion = recibir_posicion(jugador_actual)
+# Inicializar puntuaciones si no existen
+if player_1_name not in scores:
+    scores[player_1_name] = 0
+if player_2_name not in scores:
+    scores[player_2_name] = 0
+if "Tie" not in scores:
+    scores["Tie"] = 0
 
-        if tablero[posicion] != " ":
-            print("Esa posición ya está ocupada. Intenta de nuevo.")
+starting_player = player_1_name  # Comienza con el jugador 1
+
+while play_again:
+    board = [" "] * 9
+    current_player = starting_player
+    current_symbol = "X" if current_player == player_1_name else "O"
+    game_in_progress = True
+
+    while game_in_progress:
+        print_board(board)
+        position = get_position(current_player)
+
+        if board[position] != " ":
+            print("That position is already taken. Try again.")
             continue
 
-        tablero[posicion] = jugador_actual
-        ganador = verificar_ganador(tablero)
+        board[position] = current_symbol
+        winner = check_winner(board)
 
-        if ganador:
-            imprimir_tablero(tablero)
-            print(f"¡Jugador {ganador} gana!")
-            puntuaciones[ganador] += 1
-            juego_en_curso = False
+        if winner:
+            print_board(board)
+            print(f"Player {current_player} ({winner}) wins!")
+            scores[current_player] += 1
+            game_in_progress = False
 
-        elif tablero_lleno(tablero):
-            imprimir_tablero(tablero)
-            print("¡Es un empate!")
-            puntuaciones["Empate"] += 1
-            juego_en_curso = False
+        elif board_full(board):
+            print_board(board)
+            print("It's a tie!")
+            scores["Tie"] += 1
+            game_in_progress = False
 
-        jugador_actual = alternar_jugador(jugador_actual) # este es para cambiar de jugador para los turnos
+        else:
+            current_player = switch_player_name(current_player, player_1_name, player_2_name)
+            current_symbol = "X" if current_player == player_1_name else "O"
 
-    jugador_inicial = alternar_jugador(jugador_inicial) # este es para cambiar de jugador incial al principio de la partida
-    jugar_otra_vez = volver_a_jugar()
+    starting_player = switch_player_name(starting_player, player_1_name, player_2_name)
+    play_again = play_again_prompt()
 
-guardar_puntuacion(puntuaciones)
-print("\nPuntuación Final:")
-print(f"Jugador X: {puntuaciones['X']} victorias")
-print(f"Jugador O: {puntuaciones['O']} victorias")
-print(f"Empates: {puntuaciones['Empate']} veces")
+save_score(scores)
+print("\nFinal Score:")
+print(f"{player_1_name}: {scores[player_1_name]} wins")
+print(f"{player_2_name}: {scores[player_2_name]} wins")
+print(f"Ties: {scores['Tie']} times")
